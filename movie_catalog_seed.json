@@ -1,0 +1,596 @@
+[
+  {
+    "id": "april-x",
+    "title": "April X",
+    "release_date": "2026-10-02",
+    "year": 2026,
+    "poster": "april-x",
+    "accent": "#746058",
+    "is_listed": 1
+  },
+  {
+    "id": "beware-boiuna",
+    "title": "Beware Boiúna",
+    "release_date": "2026-10-02",
+    "year": 2026,
+    "poster": "beware-boiuna",
+    "accent": "#3f6869",
+    "is_listed": 1
+  },
+  {
+    "id": "digger",
+    "title": "Digger",
+    "release_date": "2026-10-02",
+    "year": 2026,
+    "poster": "digger",
+    "accent": "#786a56",
+    "is_listed": 1
+  },
+  {
+    "id": "rolling-loud",
+    "title": "Rolling Loud: The Movie",
+    "release_date": "2026-10-02",
+    "year": 2026,
+    "poster": "rolling-loud",
+    "accent": "#8b4c49",
+    "is_listed": 1
+  },
+  {
+    "id": "verity",
+    "title": "Verity",
+    "release_date": "2026-10-02",
+    "year": 2026,
+    "poster": "verity",
+    "accent": "#6f556a",
+    "is_listed": 1
+  },
+  {
+    "id": "adore-him",
+    "title": "Adore Him: He Is Here",
+    "release_date": "2026-10-04",
+    "year": 2026,
+    "poster": "adore-him",
+    "accent": "#8b7255",
+    "is_listed": 1
+  },
+  {
+    "id": "angel-badman",
+    "title": "Angel and the Badman",
+    "release_date": "2026-10-09",
+    "year": 2026,
+    "poster": "angel-badman",
+    "accent": "#8c6b4d",
+    "is_listed": 1
+  },
+  {
+    "id": "other-mommy",
+    "title": "Other Mommy",
+    "release_date": "2026-10-09",
+    "year": 2026,
+    "poster": "other-mommy",
+    "accent": "#41616a",
+    "is_listed": 1
+  },
+  {
+    "id": "social-reckoning",
+    "title": "The Social Reckoning",
+    "release_date": "2026-10-09",
+    "year": 2026,
+    "poster": "social-reckoning",
+    "accent": "#56566c",
+    "is_listed": 1
+  },
+  {
+    "id": "sense-sensibility",
+    "title": "Sense and Sensibility",
+    "release_date": "2026-10-16",
+    "year": 2026,
+    "poster": "sense-sensibility",
+    "accent": "#92705e",
+    "is_listed": 1
+  },
+  {
+    "id": "crawlers",
+    "title": "Crawlers",
+    "release_date": "2026-10-16",
+    "year": 2026,
+    "poster": "crawlers",
+    "accent": "#68565f",
+    "is_listed": 1
+  },
+  {
+    "id": "ranabaali",
+    "title": "Ranabaali",
+    "release_date": "2026-10-16",
+    "year": 2026,
+    "poster": "ranabaali",
+    "accent": "#7b574a",
+    "is_listed": 1
+  },
+  {
+    "id": "street-fighter",
+    "title": "Street Fighter",
+    "release_date": "2026-10-16",
+    "year": 2026,
+    "poster": "street-fighter",
+    "accent": "#b14837",
+    "is_listed": 1
+  },
+  {
+    "id": "whalefall",
+    "title": "Whalefall",
+    "release_date": "2026-10-16",
+    "year": 2026,
+    "poster": "whalefall",
+    "accent": "#386b82",
+    "is_listed": 1
+  },
+  {
+    "id": "you-can-see-everything",
+    "title": "You Can See Everything",
+    "release_date": "2026-10-16",
+    "year": 2026,
+    "poster": "you-can-see-everything",
+    "accent": "#716788",
+    "is_listed": 1
+  },
+  {
+    "id": "clayface",
+    "title": "Clayface",
+    "release_date": "2026-10-23",
+    "year": 2026,
+    "poster": "clayface",
+    "accent": "#806b4c",
+    "is_listed": 1
+  },
+  {
+    "id": "klara-sun",
+    "title": "Klara and the Sun",
+    "release_date": "2026-10-23",
+    "year": 2026,
+    "poster": "klara-sun",
+    "accent": "#8c8070",
+    "is_listed": 1
+  },
+  {
+    "id": "talent-murder",
+    "title": "A Talent for Murder",
+    "release_date": "2026-10-23",
+    "year": 2026,
+    "poster": "talent-murder",
+    "accent": "#725c57",
+    "is_listed": 1
+  },
+  {
+    "id": "wicker",
+    "title": "Wicker",
+    "release_date": "2026-10-23",
+    "year": 2026,
+    "poster": "wicker",
+    "accent": "#767044",
+    "is_listed": 1
+  },
+  {
+    "id": "wildwood",
+    "title": "Wildwood",
+    "release_date": "2026-10-23",
+    "year": 2026,
+    "poster": "wildwood",
+    "accent": "#4d765f",
+    "is_listed": 1
+  },
+  {
+    "id": "christmas-kringles",
+    "title": "Christmas at the Kringles",
+    "release_date": "2026-10-30",
+    "year": 2026,
+    "poster": "christmas-kringles",
+    "accent": "#a24c46",
+    "is_listed": 1
+  },
+  {
+    "id": "mongoose",
+    "title": "The Mongoose",
+    "release_date": "2026-10-30",
+    "year": 2026,
+    "poster": "mongoose",
+    "accent": "#4c586c",
+    "is_listed": 1
+  },
+  {
+    "id": "everest-other-side",
+    "title": "Everest: The Other Side",
+    "release_date": "2026-10-30",
+    "year": 2026,
+    "poster": "everest-other-side",
+    "accent": "#527d96",
+    "is_listed": 1
+  },
+  {
+    "id": "pickpocket-ny",
+    "title": "The Only Living Pickpocket in New York",
+    "release_date": "2026-10-30",
+    "year": 2026,
+    "poster": "pickpocket-ny",
+    "accent": "#665567",
+    "is_listed": 1
+  },
+  {
+    "id": "breeder",
+    "title": "Breeder",
+    "release_date": "2026-10-28",
+    "year": 2026,
+    "poster": "breeder",
+    "accent": "#4d665d",
+    "is_listed": 1
+  },
+  {
+    "id": "cat-hat",
+    "title": "The Cat in the Hat",
+    "release_date": "2026-11-06",
+    "year": 2026,
+    "poster": "cat-hat",
+    "accent": "#b84e46",
+    "is_listed": 1
+  },
+  {
+    "id": "drummer-boy",
+    "title": "Drummer Boy",
+    "release_date": "2026-11-06",
+    "year": 2026,
+    "poster": "drummer-boy",
+    "accent": "#9a704b",
+    "is_listed": 1
+  },
+  {
+    "id": "godzilla-minus-zero",
+    "title": "Godzilla Minus Zero",
+    "release_date": "2026-11-06",
+    "year": 2026,
+    "poster": "godzilla-minus-zero",
+    "accent": "#3e626e",
+    "is_listed": 1
+  },
+  {
+    "id": "jimmy",
+    "title": "Jimmy",
+    "release_date": "2026-11-06",
+    "year": 2026,
+    "poster": "jimmy",
+    "accent": "#55795d",
+    "is_listed": 1
+  },
+  {
+    "id": "wild-horse-nine",
+    "title": "Wild Horse Nine",
+    "release_date": "2026-11-06",
+    "year": 2026,
+    "poster": "wild-horse-nine",
+    "accent": "#78654d",
+    "is_listed": 1
+  },
+  {
+    "id": "ghost-soldier",
+    "title": "Ghost Soldier",
+    "release_date": "2026-11-11",
+    "year": 2026,
+    "poster": "ghost-soldier",
+    "accent": "#4b596e",
+    "is_listed": 1
+  },
+  {
+    "id": "ebenezer",
+    "title": "Ebenezer: A Christmas Carol",
+    "release_date": "2026-11-13",
+    "year": 2026,
+    "poster": "ebenezer",
+    "accent": "#456353",
+    "is_listed": 1
+  },
+  {
+    "id": "how-to-rob-a-bank",
+    "title": "How to Rob a Bank",
+    "release_date": "2026-11-13",
+    "year": 2026,
+    "poster": "how-to-rob-a-bank",
+    "accent": "#5d5368",
+    "is_listed": 1
+  },
+  {
+    "id": "victorian-psycho",
+    "title": "Victorian Psycho",
+    "release_date": "2026-11-13",
+    "year": 2026,
+    "poster": "victorian-psycho",
+    "accent": "#75515a",
+    "is_listed": 1
+  },
+  {
+    "id": "hunger-games-sunrise",
+    "title": "The Hunger Games: Sunrise on the Reaping",
+    "release_date": "2026-11-20",
+    "year": 2026,
+    "poster": "hunger-games-sunrise",
+    "accent": "#7b5148",
+    "is_listed": 1
+  },
+  {
+    "id": "i-play-rocky",
+    "title": "I Play Rocky",
+    "release_date": "2026-11-20",
+    "year": 2026,
+    "poster": "i-play-rocky",
+    "accent": "#8c633d",
+    "is_listed": 1
+  },
+  {
+    "id": "paper-tiger",
+    "title": "Paper Tiger",
+    "release_date": "2026-11-20",
+    "year": 2026,
+    "poster": "paper-tiger",
+    "accent": "#49655d",
+    "is_listed": 1
+  },
+  {
+    "id": "focker-in-law",
+    "title": "Focker-in-Law",
+    "release_date": "2026-11-25",
+    "year": 2026,
+    "poster": "focker-in-law",
+    "accent": "#7d5b52",
+    "is_listed": 1
+  },
+  {
+    "id": "hershey",
+    "title": "Hershey",
+    "release_date": "2026-11-25",
+    "year": 2026,
+    "poster": "hershey",
+    "accent": "#6f5640",
+    "is_listed": 1
+  },
+  {
+    "id": "hexed",
+    "title": "Hexed",
+    "release_date": "2026-11-25",
+    "year": 2026,
+    "poster": "hexed",
+    "accent": "#5c5b84",
+    "is_listed": 1
+  },
+  {
+    "id": "flavia",
+    "title": "Flavia",
+    "release_date": "2026-12-04",
+    "year": 2026,
+    "poster": "flavia",
+    "accent": "#5f7368",
+    "is_listed": 1
+  },
+  {
+    "id": "the-gallerist",
+    "title": "The Gallerist",
+    "release_date": "2026-12-04",
+    "year": 2026,
+    "poster": "the-gallerist",
+    "accent": "#816b7c",
+    "is_listed": 1
+  },
+  {
+    "id": "november-1963",
+    "title": "November 1963",
+    "release_date": "2026-12-04",
+    "year": 2026,
+    "poster": "november-1963",
+    "accent": "#4f606f",
+    "is_listed": 1
+  },
+  {
+    "id": "violent-night-2",
+    "title": "Violent Night 2",
+    "release_date": "2026-12-04",
+    "year": 2026,
+    "poster": "violent-night-2",
+    "accent": "#8d4540",
+    "is_listed": 1
+  },
+  {
+    "id": "behemoth",
+    "title": "Behemoth!",
+    "release_date": "2026-12-04",
+    "year": 2026,
+    "poster": "behemoth",
+    "accent": "#555b72",
+    "is_listed": 1
+  },
+  {
+    "id": "the-debut",
+    "title": "The Debut",
+    "release_date": "2026-12-11",
+    "year": 2026,
+    "poster": "the-debut",
+    "accent": "#6d7b81",
+    "is_listed": 1
+  },
+  {
+    "id": "ink",
+    "title": "Ink",
+    "release_date": "2026-12-11",
+    "year": 2026,
+    "poster": "ink",
+    "accent": "#584f54",
+    "is_listed": 1
+  },
+  {
+    "id": "zero-ad",
+    "title": "Zero A.D.: The Birth of Christ",
+    "release_date": "2026-12-11",
+    "year": 2026,
+    "poster": "zero-ad",
+    "accent": "#a4805a",
+    "is_listed": 1
+  },
+  {
+    "id": "avengers-doomsday",
+    "title": "Avengers: Doomsday",
+    "release_date": "2026-12-18",
+    "year": 2026,
+    "poster": "avengers-doomsday",
+    "accent": "#755349",
+    "is_listed": 1
+  },
+  {
+    "id": "dune-part-three",
+    "title": "Dune: Part Three",
+    "release_date": "2026-12-18",
+    "year": 2026,
+    "poster": "dune-part-three",
+    "accent": "#ad8755",
+    "is_listed": 1
+  },
+  {
+    "id": "angry-birds-3",
+    "title": "The Angry Birds Movie 3",
+    "release_date": "2026-12-23",
+    "year": 2026,
+    "poster": "angry-birds-3",
+    "accent": "#c66f3b",
+    "is_listed": 1
+  },
+  {
+    "id": "artificial",
+    "title": "Artificial",
+    "release_date": "2026-12-25",
+    "year": 2026,
+    "poster": "artificial",
+    "accent": "#566b7f",
+    "is_listed": 1
+  },
+  {
+    "id": "jumanji-open-world",
+    "title": "Jumanji: Open World",
+    "release_date": "2026-12-25",
+    "year": 2026,
+    "poster": "jumanji-open-world",
+    "accent": "#53705b",
+    "is_listed": 1
+  },
+  {
+    "id": "mr-irrelevant",
+    "title": "Mr. Irrelevant: The John Tuggle Story",
+    "release_date": "2026-12-25",
+    "year": 2026,
+    "poster": "mr-irrelevant",
+    "accent": "#916e55",
+    "is_listed": 1
+  },
+  {
+    "id": "werwulf",
+    "title": "Werwulf",
+    "release_date": "2026-12-25",
+    "year": 2026,
+    "poster": "werwulf",
+    "accent": "#555150",
+    "is_listed": 1
+  },
+  {
+    "id": "look-back",
+    "title": "Look Back",
+    "release_date": "2026-12-30",
+    "year": 2026,
+    "poster": "look-back",
+    "accent": "#9b6c75",
+    "is_listed": 1
+  },
+  {
+    "id": "midnight",
+    "title": "The Midnight Archive",
+    "genre": "Mystery · Thriller",
+    "language": "English",
+    "rating": "8.4",
+    "duration": "2h 08m",
+    "year": 2025,
+    "tag": "NOW SHOWING",
+    "description": "A quiet archivist discovers that one reel in the city film library changes every time it is played.",
+    "poster": "midnight",
+    "accent": "#6b5a8c",
+    "release_date": null,
+    "is_listed": 0
+  },
+  {
+    "id": "wild",
+    "title": "Wildflower Season",
+    "genre": "Drama · Romance",
+    "language": "English",
+    "rating": "8.1",
+    "duration": "1h 56m",
+    "year": 2025,
+    "tag": "AUDIENCE FAVOURITE",
+    "description": "Two old friends meet again in the coastal town where they once promised to leave together.",
+    "poster": "wild",
+    "accent": "#b67c70",
+    "release_date": null,
+    "is_listed": 0
+  },
+  {
+    "id": "orbit",
+    "title": "Orbit: First Light",
+    "genre": "Sci-Fi · Adventure",
+    "language": "English",
+    "rating": "8.7",
+    "duration": "2h 21m",
+    "year": 2025,
+    "tag": "IMAX EXPERIENCE",
+    "description": "A stranded pilot follows a mysterious signal across the edge of a newly discovered world.",
+    "poster": "orbit",
+    "accent": "#596f87",
+    "release_date": null,
+    "is_listed": 0
+  },
+  {
+    "id": "paper",
+    "title": "The Paper Kingdom",
+    "genre": "Animation · Family",
+    "language": "English",
+    "rating": "7.9",
+    "duration": "1h 42m",
+    "year": 2025,
+    "tag": "FAMILY PICK",
+    "description": "A curious young cartographer finds a hidden kingdom folded between the pages of her atlas.",
+    "poster": "paper",
+    "accent": "#a87849",
+    "release_date": null,
+    "is_listed": 0
+  },
+  {
+    "id": "blue",
+    "title": "Blue Hour in Kyoto",
+    "genre": "Drama · Romance",
+    "language": "Japanese",
+    "rating": "8.2",
+    "duration": "1h 49m",
+    "year": 2025,
+    "tag": "LIMITED RELEASE",
+    "description": "An unlikely friendship unfolds over a single summer of late-night walks and small rituals.",
+    "poster": "blue",
+    "accent": "#627f87",
+    "release_date": null,
+    "is_listed": 0
+  },
+  {
+    "id": "last",
+    "title": "The Last Frequency",
+    "genre": "Action · Sci-Fi",
+    "language": "English",
+    "rating": "7.8",
+    "duration": "2h 02m",
+    "year": 2025,
+    "tag": "NEW THIS WEEK",
+    "description": "When every broadcast goes silent, one late-night radio host becomes humanity's last connection.",
+    "poster": "last",
+    "accent": "#8d655e",
+    "release_date": null,
+    "is_listed": 0
+  }
+]

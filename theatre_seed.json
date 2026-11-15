@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Northstar IMAX",
+    "city": "Columbus",
+    "screen_name": "IMAX Screen 1"
+  },
+  {
+    "name": "The Grand Cinema",
+    "city": "Columbus",
+    "screen_name": "Screen 1"
+  },
+  {
+    "name": "Crescent Cinema",
+    "city": "Columbus",
+    "screen_name": "Screen 1"
+  },
+  {
+    "name": "Metro Screens",
+    "city": "Cleveland",
+    "screen_name": "Screen 1"
+  },
+  {
+    "name": "Riverside Picturehouse",
+    "city": "Cleveland",
+    "screen_name": "Screen 1"
+  }
+]
