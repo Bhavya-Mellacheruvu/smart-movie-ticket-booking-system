@@ -1,5 +1,5 @@
 # iMovieTickets — Smart Movie Ticket Booking System
-
+![Python Unit Tests](https://github.com/Bhavya-Mellacheruvu/smart-movie-ticket-booking-system/actions/workflows/tests.yml/badge.svg)
 ## Project summary
 
 The Smart Movie Ticket Booking System is a local web prototype for browsing recent and upcoming U.S. movie releases, viewing sample cinemas and showtimes, selecting seats, and managing bookings. The Discover page features a rotating movie banner and a searchable catalog, with separate views for movies now showing and coming soon. The frontend uses React with Vite, while a Python Flask API handles movie, seat, booking, and cancellation requests. Booking rules live in a separate service module, and records are stored in a local SQLite database (`movie_bookings.sqlite3`).
