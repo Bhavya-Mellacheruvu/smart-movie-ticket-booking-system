@@ -324,6 +324,44 @@ def _seed_cities_and_theatres(db):
                     (row["id"], "Screen 1"),
                 )
 
+    # The location picker includes every seeded city. Add a sample venue and
+    # screen for cities that do not have one so every location can book tickets.
+    cities = db.execute("SELECT id,name FROM cities ORDER BY name").fetchall()
+    for city in cities:
+        active_theatre = db.execute(
+            "SELECT id FROM theatres WHERE city_id=? AND active=1 LIMIT 1",
+            (city["id"],),
+        ).fetchone()
+        if active_theatre:
+            continue
+
+        theatre_name = f"{city['name']} Sample Cinema"
+        theatre = db.execute(
+            "SELECT id FROM theatres WHERE name=?", (theatre_name,)
+        ).fetchone()
+        if theatre:
+            theatre_id = theatre["id"]
+            db.execute(
+                "UPDATE theatres SET city_id=?,active=1 WHERE id=?",
+                (city["id"], theatre_id),
+            )
+        else:
+            cursor = db.execute(
+                "INSERT INTO theatres(name,city_id) VALUES(?,?)",
+                (theatre_name, city["id"]),
+            )
+            theatre_id = cursor.lastrowid
+
+        active_screen = db.execute(
+            "SELECT 1 FROM screens WHERE theatre_id=? AND active=1 LIMIT 1",
+            (theatre_id,),
+        ).fetchone()
+        if not active_screen:
+            db.execute(
+                "INSERT INTO screens(theatre_id,name) VALUES(?,?)",
+                (theatre_id, "Screen 1"),
+            )
+
 
 def _default_screen_id(db, theatre_name):
     screen = db.execute(

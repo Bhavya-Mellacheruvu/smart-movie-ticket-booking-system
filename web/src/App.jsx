@@ -239,6 +239,12 @@ function App() {
       setDate("");
       setTime("");
       setSeats([]);
+      setStep(1);
+      setNotice(
+        next.theatres.length
+          ? ""
+          : `No cinemas are currently listed in ${value}. Try another location.`,
+      );
     });
   }
   return (
@@ -288,6 +294,7 @@ function App() {
           date={date}
           time={time}
           theatre={theatre}
+          city={city}
           seats={seats}
           money={money}
           setView={setView}

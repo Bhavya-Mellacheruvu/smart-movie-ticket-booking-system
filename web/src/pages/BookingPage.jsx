@@ -8,6 +8,7 @@ export default function BookingPage(props) {
     date,
     time,
     theatre,
+    city,
     seats,
     money,
     setView,
@@ -138,17 +139,31 @@ export default function BookingPage(props) {
                   <div className="select-wrap">
                     <select
                       value={theatre}
+                      disabled={!opts?.theatres.length}
                       onChange={(e) => {
                         setTheatre(e.target.value);
                         setSeats([]);
                       }}
                     >
+                      <option value="" disabled>
+                        {opts?.theatres.length
+                          ? "Choose a cinema"
+                          : "No cinemas in this location"}
+                      </option>
                       {opts?.theatres.map((t) => (
-                        <option key={t}>{t}</option>
+                        <option key={t} value={t}>
+                          {t}
+                        </option>
                       ))}
                     </select>
                     <span>⌄</span>
                   </div>
+                  {!opts?.theatres.length && (
+                    <p className="notice-bar cinema-unavailable">
+                      No sample cinemas are available in {city || "this location"}.
+                      Try another location to continue booking.
+                    </p>
+                  )}
                 </div>
                 <div className="form-field">
                   <label>DATE</label>
@@ -267,7 +282,7 @@ export default function BookingPage(props) {
                 <div className="booking-actions">
                   <button
                     className="primary-btn"
-                    disabled={!time}
+                    disabled={!theatre || !date || !time}
                     onClick={() => setStep(2)}
                   >
                     Choose your seats <span>→</span>
@@ -402,7 +417,11 @@ export default function BookingPage(props) {
                   <small>For demo purposes only</small>
                 </label>
                 <div className="booking-actions">
-                  <button className="primary-btn" disabled={busy} onClick={pay}>
+                  <button
+                    className="primary-btn"
+                    disabled={busy || !theatre || !date || !time || !seats.length}
+                    onClick={pay}
+                  >
                     {busy ? "Confirming…" : "Confirm booking"} <span>→</span>
                   </button>
                   <button className="text-btn" onClick={() => setStep(2)}>

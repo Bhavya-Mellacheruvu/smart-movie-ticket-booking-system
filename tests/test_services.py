@@ -133,6 +133,12 @@ class BookingValidationTests(unittest.TestCase):
             "Choose a simulated payment method.",
         )
 
+    def test_requires_a_cinema_available_in_the_selected_location(self):
+        self.assert_invalid(
+            valid_payload(theatre=""),
+            "Choose a cinema for your selected location.",
+        )
+
     def test_reports_simulated_payment_decline(self):
         self.assert_invalid(
             valid_payload(simulate_failure=True),

@@ -1,9 +1,11 @@
 """HTTP boundary tests for the Flask API."""
 
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from unittest.mock import Mock, patch
 
-from app import app, connect
+from app import app, connect, init_db
 
 
 class CityEndpointTests(unittest.TestCase):
@@ -45,6 +47,38 @@ class DatabaseConnectionTests(unittest.TestCase):
         database.commit.assert_called_once_with()
         database.rollback.assert_not_called()
         database.close.assert_called_once_with()
+
+
+class CityVenueSeedTests(unittest.TestCase):
+    def test_every_seeded_city_gets_a_cinema_and_seeding_is_idempotent(self):
+        with (
+            TemporaryDirectory() as temp_dir,
+            patch("app.DB_PATH", Path(temp_dir) / "test.sqlite3"),
+        ):
+            init_db()
+
+            with connect() as db:
+                city_count = db.execute("SELECT COUNT(*) FROM cities").fetchone()[0]
+                uncovered_cities = db.execute(
+                    """SELECT c.name FROM cities c
+                       LEFT JOIN theatres t ON t.city_id=c.id AND t.active=1
+                       GROUP BY c.id HAVING COUNT(t.id)=0"""
+                ).fetchall()
+                theatre_count = db.execute(
+                    "SELECT COUNT(*) FROM theatres WHERE active=1"
+                ).fetchone()[0]
+
+            self.assertGreater(city_count, 0)
+            self.assertEqual(uncovered_cities, [])
+
+            init_db()
+            with connect() as db:
+                self.assertEqual(
+                    db.execute(
+                        "SELECT COUNT(*) FROM theatres WHERE active=1"
+                    ).fetchone()[0],
+                    theatre_count,
+                )
 
     @patch("app.sqlite3.connect")
     def test_connection_rolls_back_and_closes_after_error(self, sqlite_connect):

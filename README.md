@@ -34,7 +34,7 @@ The React app is split into page-level views (`DiscoverPage`, `BookingPage`, `Bo
 - `booking_seats` stores each reserved seat and links it to both its booking and screening. A unique screening/seat key prevents two confirmed bookings from taking the same seat.
 - `users` stores Google account details used by sign-in.
 
-On a new or empty database, the app inserts the initial movie catalog from `movie_catalog_seed.json`, city data from `city_seed.json`, and sample venues/screens from `theatre_seed.json`. The sample venues are split across Columbus (3) and Cleveland (2). Existing bookings and screenings are migrated at startup. Canceled booking seat assignments remain in `booking_seats` with `is_reserved=0`, preserving history while making those seats available again.
+On a new or empty database, the app inserts the initial movie catalog from `movie_catalog_seed.json`, city data from `city_seed.json`, and sample venues/screens from `theatre_seed.json`. Those five named venues are split across Columbus (3) and Cleveland (2); startup also adds a sample cinema and screen for any other seeded city without one, including cities in existing databases. Existing bookings and screenings are migrated at startup. Canceled booking seat assignments remain in `booking_seats` with `is_reserved=0`, preserving history while making those seats available again.
 
 The five demo showtimes are still shared sample options. A screening row is created for the selected movie and the theatre's active screen when a booking succeeds; a separately managed future schedule is not part of this change.
 

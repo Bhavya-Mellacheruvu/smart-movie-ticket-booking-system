@@ -131,7 +131,7 @@
 .flow-page .confirmation h1 em{font-style:normal;color:#ff644c}
 .flow-page .confirm-sub{color:#bbb6b4;font-size:15px}
 .flow-page .ticket{background:#151519;border:1px solid #39383d;border-radius:7px;box-shadow:0 20px 60px #0005;color:#fff;overflow:hidden}
-.flow-page .ticket-poster{padding:14px}.flow-page .ticket-details{border-color:#48464b;padding:25px}
+.flow-page .ticket-poster{padding:14px}.flow-page .ticket-poster .poster{height:auto;min-height:0;aspect-ratio:2/3;align-self:start}.flow-page .ticket-details{border-color:#48464b;padding:25px}
 .flow-page .ticket-brand{font-size:10px;color:#fff}.flow-page .ticket-brand span{color:#aaa5a3}
 .flow-page .ticket-details h2{font-family:'Bebas Neue','Arial Narrow',sans-serif;font-size:34px;letter-spacing:.02em;color:#fff}
 .flow-page .ticket-details>p{font-size:13px;color:#bbb6b4}
@@ -302,3 +302,4 @@
   white-space:nowrap!important;
 }
 .flow-page .time-option>small{font-size:9px!important;font-weight:500!important}
+.cinema-unavailable{display:block;margin:10px 0 0;line-height:1.5}

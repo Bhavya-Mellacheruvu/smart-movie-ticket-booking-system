@@ -88,8 +88,6 @@ def validate_booking(
     if (
         not isinstance(movie_id, str)
         or movie_id not in movie_by_id
-        or not isinstance(theatre, str)
-        or theatre not in theatres
         or not isinstance(show_time, str)
         or show_time not in showtimes
         or not isinstance(seats, list)
@@ -98,6 +96,8 @@ def validate_booking(
         raise BookingValidationError(
             "Please choose a movie, showtime and at least one seat."
         )
+    if not isinstance(theatre, str) or theatre not in theatres:
+        raise BookingValidationError("Choose a cinema for your selected location.")
 
     movie = movie_by_id[movie_id]
     try:
