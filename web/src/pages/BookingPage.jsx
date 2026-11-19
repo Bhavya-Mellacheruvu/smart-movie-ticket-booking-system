@@ -1,6 +1,13 @@
+import { useEffect, useState } from "react";
 import Poster from "../components/Poster.jsx";
+import { isDatePast, isShowtimePast } from "../utils.js";
 
 export default function BookingPage(props) {
+  const [currentInstant, setCurrentInstant] = useState(() => new Date());
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentInstant(new Date()), 30_000);
+    return () => clearInterval(timer);
+  }, []);
   const {
     goHome,
     confirmed,
@@ -173,6 +180,7 @@ export default function BookingPage(props) {
                       .map((d, i) => (
                         <button
                           key={d}
+                          disabled={isDatePast(d, opts?.timezone, currentInstant)}
                           className={date === d ? "date-option chosen" : ""}
                           onClick={() => {
                             setDate(d);
@@ -234,55 +242,76 @@ export default function BookingPage(props) {
                     SHOWTIME <span>· ALL TIMES LOCAL</span>
                   </label>
                   <div className="time-options">
-                    {opts?.times.map((t, i) => (
-                      <button
-                        key={t}
-                        className={time === t ? "time-option chosen" : ""}
-                        onClick={() => {
-                          setTime(t);
-                          setSeats([]);
-                        }}
-                      >
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: "3px",
-                            whiteSpace: "nowrap",
-                            fontFamily: "DM Sans, sans-serif",
+                    {opts?.times.map((t, i) => {
+                      const past = isShowtimePast(
+                        date,
+                        t,
+                        opts?.timezone,
+                        currentInstant,
+                      );
+                      return (
+                        <button
+                          key={t}
+                          disabled={past}
+                          title={
+                            past ? "This showtime has already passed" : undefined
+                          }
+                          className={
+                            time === t ? "time-option chosen" : "time-option"
+                          }
+                          onClick={() => {
+                            setTime(t);
+                            setSeats([]);
                           }}
                         >
-                          <span
+                          <div
                             style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              gap: "3px",
+                              whiteSpace: "nowrap",
                               fontFamily: "DM Sans, sans-serif",
-                              color: time === t ? "#ffffff" : "#242329",
                             }}
                           >
-                            {t}
-                          </span>
-                          <small
-                            style={{
-                              fontFamily: "DM Sans, sans-serif",
-                              color: time === t ? "#ffc0b5" : "#242329",
-                            }}
-                          >
-                            {i === 0
-                              ? "STANDARD"
-                              : i === 3
-                                ? "POPULAR"
-                                : "STANDARD"}
-                          </small>
-                        </div>
-                      </button>
-                    ))}
+                            <span
+                              style={{
+                                fontFamily: "DM Sans, sans-serif",
+                                color: time === t ? "#ffffff" : "#242329",
+                              }}
+                            >
+                              {t}
+                            </span>
+                            <small
+                              style={{
+                                fontFamily: "DM Sans, sans-serif",
+                                color: time === t ? "#ffc0b5" : "#242329",
+                              }}
+                            >
+                              {past
+                                ? "PAST"
+                                : i === 0
+                                  ? "STANDARD"
+                                  : i === 3
+                                    ? "POPULAR"
+                                    : "STANDARD"}
+                            </small>
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
                 <div className="booking-actions">
                   <button
                     className="primary-btn"
-                    disabled={!theatre || !date || !time}
+                    disabled={
+                      !theatre ||
+                      !date ||
+                      !time ||
+                      isShowtimePast(date, time, opts?.timezone, currentInstant)
+                    }
                     onClick={() => setStep(2)}
                   >
                     Choose your seats <span>→</span>
@@ -347,7 +376,10 @@ export default function BookingPage(props) {
                 <div className="booking-actions">
                   <button
                     className="primary-btn"
-                    disabled={!seats.length}
+                    disabled={
+                      !seats.length ||
+                      isShowtimePast(date, time, opts?.timezone, currentInstant)
+                    }
                     onClick={() => setStep(3)}
                   >
                     Continue to checkout <span>→</span>
@@ -419,7 +451,14 @@ export default function BookingPage(props) {
                 <div className="booking-actions">
                   <button
                     className="primary-btn"
-                    disabled={busy || !theatre || !date || !time || !seats.length}
+                    disabled={
+                      busy ||
+                      !theatre ||
+                      !date ||
+                      !time ||
+                      !seats.length ||
+                      isShowtimePast(date, time, opts?.timezone, currentInstant)
+                    }
                     onClick={pay}
                   >
                     {busy ? "Confirming…" : "Confirm booking"} <span>→</span>

@@ -217,7 +217,9 @@ function App() {
   async function cancel(id) {
     try {
       await call("/bookings/" + id, { method: "DELETE" });
-      setNotice("Booking cancelled. Your seats are available again.");
+      setNotice(
+        "Ticket cancelled successfully. Any eligible refund will be credited within 3–4 business days.",
+      );
       refreshBookings();
       refreshSeats();
     } catch (e) {

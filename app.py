@@ -8,8 +8,10 @@ import sqlite3
 import uuid
 from contextlib import contextmanager
 from datetime import datetime
+from datetime import timezone as utc_timezone
 from functools import wraps
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from authlib.integrations.flask_client import OAuth
 from flask import (
@@ -26,6 +28,7 @@ from services import (
     BookingValidationError,
     booking_options,
     movie_catalog,
+    screening_is_past,
     validate_booking,
 )
 
@@ -108,7 +111,8 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL UNIQUE,
             latitude REAL NOT NULL,
-            longitude REAL NOT NULL
+            longitude REAL NOT NULL,
+            timezone TEXT NOT NULL DEFAULT 'America/Chicago'
         );
         CREATE TABLE IF NOT EXISTS theatres (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -140,6 +144,14 @@ def init_db():
         );
         """
         )
+
+        city_columns = {
+            row["name"] for row in db.execute("PRAGMA table_info(cities)").fetchall()
+        }
+        if "timezone" not in city_columns:
+            db.execute(
+                "ALTER TABLE cities ADD COLUMN timezone TEXT NOT NULL DEFAULT 'America/Chicago'"
+            )
 
         if db.execute("SELECT COUNT(*) FROM movies").fetchone()[0] == 0:
             seed = json.loads((ROOT / "movie_catalog_seed.json").read_text())
@@ -288,11 +300,24 @@ def _get_or_create_screening(db, movie_id, theatre, show_date, show_time):
 
 
 def _seed_cities_and_theatres(db):
+    cities = json.loads((ROOT / "city_seed.json").read_text())
     if db.execute("SELECT COUNT(*) FROM cities").fetchone()[0] == 0:
-        cities = json.loads((ROOT / "city_seed.json").read_text())
         db.executemany(
-            "INSERT INTO cities(name,latitude,longitude) VALUES(?,?,?)",
-            [(city["name"], city["latitude"], city["longitude"]) for city in cities],
+            "INSERT INTO cities(name,latitude,longitude,timezone) VALUES(?,?,?,?)",
+            [
+                (
+                    city["name"],
+                    city["latitude"],
+                    city["longitude"],
+                    city["timezone"],
+                )
+                for city in cities
+            ],
+        )
+    else:
+        db.executemany(
+            "UPDATE cities SET timezone=? WHERE name=?",
+            [(city["timezone"], city["name"]) for city in cities],
         )
     if db.execute("SELECT COUNT(*) FROM theatres").fetchone()[0] == 0:
         venues = json.loads((ROOT / "theatre_seed.json").read_text())
@@ -577,6 +602,7 @@ def logout():
 
 def booking_dict(row):
     item = dict(row)
+    timezone_name = item.get("timezone", "America/Chicago")
     with connect() as db:
         item["seats"] = [
             seat["seat"]
@@ -585,6 +611,12 @@ def booking_dict(row):
                 (item["id"],),
             ).fetchall()
         ]
+    item["can_cancel"] = not screening_is_past(
+        item["show_date"],
+        item["show_time"],
+        datetime.now(utc_timezone.utc),
+        timezone_name,
+    )
     return item
 
 
@@ -611,12 +643,23 @@ def options():
                    WHERE t.active=1 AND c.name=? ORDER BY t.name""",
                 (city,),
             ).fetchall()
+            city_row = db.execute(
+                "SELECT timezone FROM cities WHERE name=?", (city,)
+            ).fetchone()
+            timezone_name = city_row["timezone"] if city_row else "America/Chicago"
         else:
             rows = db.execute(
                 "SELECT name FROM theatres WHERE active=1 ORDER BY name"
             ).fetchall()
+            timezone_name = "America/Chicago"
+    local_today = datetime.now(ZoneInfo(timezone_name)).date()
     return jsonify(
-        booking_options(datetime.now().date(), [row["name"] for row in rows], SHOWTIMES)
+        booking_options(
+            local_today,
+            [row["name"] for row in rows],
+            SHOWTIMES,
+            timezone_name=timezone_name,
+        )
     )
 
 
@@ -655,11 +698,12 @@ def bookings():
     with connect() as db:
         rows = db.execute(
             """SELECT b.id,sc.movie_id,m.title AS movie,t.name AS theatre,sc.show_date,sc.show_time,
-                      b.total,b.payment_status,b.status,b.created_at,b.user_id
+                      b.total,b.payment_status,b.status,b.created_at,b.user_id,c.timezone
                FROM bookings b
                JOIN screenings sc ON sc.id=b.screening_id
                JOIN screens s ON s.id=sc.screen_id
                JOIN theatres t ON t.id=s.theatre_id
+               JOIN cities c ON c.id=t.city_id
                JOIN movies m ON m.id=sc.movie_id
                WHERE b.status='confirmed' AND b.user_id=? ORDER BY b.created_at DESC""",
             (session["user_id"],),
@@ -678,13 +722,28 @@ def create_booking():
                 "SELECT id,title,release_date,year,poster,accent FROM movies WHERE is_listed=1 AND release_date IS NOT NULL"
             ).fetchall()
         ]
-        theatres = [
-            row["name"]
-            for row in db.execute("SELECT name FROM theatres WHERE active=1").fetchall()
-        ]
+        theatre_rows = db.execute(
+            """SELECT t.name,c.timezone FROM theatres t
+               JOIN cities c ON c.id=t.city_id WHERE t.active=1"""
+        ).fetchall()
+        theatre_timezones = {row["name"]: row["timezone"] for row in theatre_rows}
+        theatres = list(theatre_timezones)
+    selected_theatre = data.get("theatre")
+    timezone_name = (
+        theatre_timezones.get(selected_theatre, "America/Chicago")
+        if isinstance(selected_theatre, str)
+        else "America/Chicago"
+    )
+    local_now = datetime.now(ZoneInfo(timezone_name))
     try:
         booking = validate_booking(
-            data, catalog, theatres, SHOWTIMES, datetime.now().date()
+            data,
+            catalog,
+            theatres,
+            SHOWTIMES,
+            local_now.date(),
+            now=local_now,
+            timezone_name=timezone_name,
         )
     except BookingValidationError as error:
         return jsonify({"error": str(error)}), error.status_code
@@ -696,7 +755,7 @@ def create_booking():
         booking.seats,
     )
     booking_id = "SM-" + uuid.uuid4().hex[:8].upper()
-    now = datetime.now().isoformat(timespec="seconds")
+    created_at = datetime.now().isoformat(timespec="seconds")
     try:
         with connect() as db:
             screening_id = _get_or_create_screening(db, movie, theatre, date, time)
@@ -708,7 +767,7 @@ def create_booking():
                     len(chosen) * 14,
                     "simulated_success",
                     "confirmed",
-                    now,
+                    created_at,
                     session["user_id"],
                 ),
             )
@@ -728,10 +787,11 @@ def create_booking():
     with connect() as db:
         row = db.execute(
             """SELECT b.id,sc.movie_id,m.title AS movie,t.name AS theatre,sc.show_date,sc.show_time,
-                      b.total,b.payment_status,b.status,b.created_at,b.user_id
+                      b.total,b.payment_status,b.status,b.created_at,b.user_id,c.timezone
                FROM bookings b JOIN screenings sc ON sc.id=b.screening_id
                JOIN screens s ON s.id=sc.screen_id
                JOIN theatres t ON t.id=s.theatre_id
+               JOIN cities c ON c.id=t.city_id
                JOIN movies m ON m.id=sc.movie_id WHERE b.id=?""",
             (booking_id,),
         ).fetchone()
@@ -742,6 +802,27 @@ def create_booking():
 @login_required
 def cancel_booking(booking_id):
     with connect() as db:
+        booking = db.execute(
+            """SELECT b.status,sc.show_date,sc.show_time,c.timezone
+               FROM bookings b JOIN screenings sc ON sc.id=b.screening_id
+               JOIN screens s ON s.id=sc.screen_id
+               JOIN theatres t ON t.id=s.theatre_id
+               JOIN cities c ON c.id=t.city_id
+               WHERE b.id=? AND b.user_id=?""",
+            (booking_id, session["user_id"]),
+        ).fetchone()
+        if not booking or booking["status"] != "confirmed":
+            return jsonify({"error": "That booking could not be found."}), 404
+        if screening_is_past(
+            booking["show_date"],
+            booking["show_time"],
+            datetime.now(utc_timezone.utc),
+            booking["timezone"],
+        ):
+            return (
+                jsonify({"error": "Past showtimes can no longer be cancelled."}),
+                409,
+            )
         cur = db.execute(
             "UPDATE bookings SET status='cancelled' WHERE id=? AND user_id=? AND status='confirmed'",
             (booking_id, session["user_id"]),

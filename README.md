@@ -27,7 +27,7 @@ The React app is split into page-level views (`DiscoverPage`, `BookingPage`, `Bo
 ## Database design
 
 - `movies` stores the current catalog and the older movie records referenced by existing bookings. The `/api/movies` endpoint reads listed movies from SQLite; release status and booking-open dates are calculated when the API responds.
-- `cities` stores supported locations and coordinates. The city picker reads these from `/api/cities`.
+- `cities` stores supported locations, coordinates, and IANA time zones. Screening availability and cancellation cutoffs use each cinema's local time.
 - `theatres` belong to a city, and `screens` belong to a theatre.
 - `screenings` assigns a movie to a screen on a date and showtime. This is how movies are related to theatres.
 - `bookings` stores the customer, screening, total, payment outcome, and booking status.
@@ -75,6 +75,7 @@ Bookings are stored in `movie_bookings.sqlite3` next to the app. Set `MOVIE_DB` 
 - Browse featured releases in the rotating Discover banner.
 - Pre-book releases starting seven days before their scheduled U.S. release date.
 - Select a sample cinema, date and screening.
+- Bookings are accepted only before a future showtime begins; past showtimes are disabled, and past tickets cannot be cancelled.
 - Choose seats in a live seating layout. Seat reservations are checked and stored atomically, preventing duplicate bookings for the same screening.
 - Simulate successful checkout or tick “Simulate a declined payment” to demonstrate a declined transaction.
 - View and cancel confirmed bookings; cancelled seats become available again.
